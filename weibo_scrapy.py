@@ -88,9 +88,12 @@ class scrapy(object):
             self.start_uid = None
         
     def scrapy(self):
-        
         login_status = login(self.login_username, self.login_password, self.cookies_file)
-    
+
+        if login_status == 0:
+            print "login failed."
+            return
+
         if login_status:
             
             if self.start_uid:

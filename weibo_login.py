@@ -99,6 +99,7 @@ def login(username, pwd, cookie_file):
 
 
 def do_login(username,pwd,cookie_file):
+
     """"
     Perform login action with use name, password and saving cookies.
     @param username: login user name
@@ -135,6 +136,7 @@ def do_login(username,pwd,cookie_file):
     try:
         servertime, nonce, rsakv = get_prelogin_status(username)
     except:
+        print "falied do_login"
         return
     
     #Fill POST data
@@ -155,6 +157,7 @@ def do_login(username,pwd,cookie_file):
     p = re.compile('location\.replace\(\"(.*?)\"\)') #double quote regex
     ps = re.compile('location\.replace\(\'(.*?)\'\)') #single quote regex
     
+
     try:
         #Search login redirection URL
         try:
@@ -166,6 +169,9 @@ def do_login(username,pwd,cookie_file):
             
         data = urllib2.urlopen(login_url).read()
         
+        #FIXME: eror page return
+        print data
+
         #Verify login feedback, check whether result is TRUE
         patt_feedback = 'feedBackUrlCallBack\((.*)\)'
         p = re.compile(patt_feedback, re.MULTILINE)
